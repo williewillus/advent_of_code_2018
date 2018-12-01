@@ -1,9 +1,5 @@
 #include "day1.h"
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <unordered_set>
-#include <vector>
+#include "util.h"
 
 namespace day1 {
 
