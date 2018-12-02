@@ -1,4 +1,3 @@
-#include "day1.h"
 #include "util.h"
 
 namespace day1 {
