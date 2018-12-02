@@ -7,12 +7,29 @@
 #include <iostream>
 #include <iterator>
 #include <string>
-#include <unordered_set>
-#include <unordered_map>
+#include <set>
+#include <map>
 #include <vector>
 
+template<typename K, typename V>
+using map = std::map<K, V>;
+
+template<typename T>
+using set = std::set<T>;
+
+using string = std::string;
+
+template<typename T>
+using vec = std::vector<T>;
+
 namespace util {
-std::vector<long> read_as_ints(std::ifstream& file);
+template<typename T>
+vec<T> read_input(const std::string& filename) {
+    std::ifstream f(filename);
+    vec<T> ret;
+    std::copy(std::istream_iterator<T>(f), {}, std::back_inserter(ret));
+    return ret;
+}
 }
 
 #endif // UTIL_H

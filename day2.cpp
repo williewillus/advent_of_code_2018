@@ -3,14 +3,14 @@
 
 namespace day2 {
 
-static std::tuple<bool, bool> count_double_triple(const std::string& s) {
-    std::unordered_map<char, long> map;
+static std::tuple<bool, bool> count_double_triple(const string& s) {
+    map<char, long> m;
     for (char c : s) {
-        map[c]++;
+        m[c]++;
     }
     bool has_double = false;
     bool has_triple = false;
-    for (const auto& pair : map) {
+    for (const auto& pair : m) {
         if (pair.second == 2) {
             has_double = true;
         } else if (pair.second == 3) {
@@ -20,7 +20,7 @@ static std::tuple<bool, bool> count_double_triple(const std::string& s) {
     return std::make_tuple(has_double, has_triple);
 }
 
-static bool has_one_diff(const std::string& s1, const std::string& s2) {
+static bool has_one_diff(const string& s1, const string& s2) {
     long diffs = 0;
     for (unsigned int i = 0; i < s1.length(); i++) {
         if (s1[i] != s2[i])
@@ -30,9 +30,7 @@ static bool has_one_diff(const std::string& s1, const std::string& s2) {
 }
 
 void run() {
-    std::ifstream f("d2_input.txt");
-    std::vector<std::string> lines;
-    std::copy(std::istream_iterator<std::string>(f), {}, std::back_inserter(lines));
+    vec<string> lines = util::read_input<string>("d2_input.txt");
     long count_double = 0, count_triple = 0;
     for (const auto& s : lines) {
         auto [has_double, has_triple] = count_double_triple(s);

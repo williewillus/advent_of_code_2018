@@ -3,19 +3,15 @@
 namespace day1 {
 
 void run() {
-    std::ifstream f("d1_input.txt");
-    std::string in;
-    std::vector<long> changes;
+    vec<long> changes = util::read_input<long>("d1_input.txt");
 
     long p1_counter = 0;
-    while (std::getline(f, in)) {
-        long l = std::stol(in);
-        changes.push_back(l);
+    for (long l : changes) {
         p1_counter += l;
     }
     std::cout << "p1: " << p1_counter << std::endl;
 
-    std::unordered_set<long> seen;
+    set<long> seen;
     seen.insert(0);
     long p2_counter = 0;
     while (true) {
