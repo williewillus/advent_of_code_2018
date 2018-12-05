@@ -30,7 +30,7 @@ static bool has_one_diff(const string& s1, const string& s2) {
 }
 
 void run() {
-    vec<string> lines = util::read_input<string>("d2_input.txt");
+    vec<string> lines = util::read_lines("d2_input.txt");
     long count_double = 0, count_triple = 0;
     for (const auto& s : lines) {
         auto [has_double, has_triple] = count_double_triple(s);

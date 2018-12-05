@@ -3,6 +3,8 @@
 #include <iterator>
 #include <list>
 
+
+// Can be done much faster (cache efficiently) with a stack
 namespace day5 {
 static bool cancel(char a, char b) {
     return (std::isupper(a) && std::tolower(a) == b)
