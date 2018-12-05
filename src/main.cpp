@@ -8,6 +8,7 @@ namespace day1 { void run(); }
 namespace day2 { void run(); }
 namespace day3 { void run(); }
 namespace day4 { void run(); }
+namespace day5 { void run(); }
 namespace chrono = std::chrono;
 
 int main(int argc, char* argv[]) {
@@ -32,6 +33,7 @@ int main(int argc, char* argv[]) {
     case 2: day2::run(); break;
     case 3: day3::run(); break;
     case 4: day4::run(); break;
+    case 5: day5::run(); break;
     default: throw std::runtime_error("No such day");
     }
 
