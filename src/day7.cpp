@@ -1,4 +1,5 @@
 #include "util.h"
+#include <array>
 #include <cassert>
 #include <list>
 #include <regex>
@@ -39,10 +40,6 @@ static string topsort(map<char, set<char>>& adj_list) {
 	return result;
 }
 
-static int time_for_job(char n) {
-	return 60 + int(n - 'A') + 1;
-}
-
 using p2q = std::priority_queue<char, vec<char>, std::greater<char>>;
 static void schedule_possible(map<char, set<char>>& dependencies, p2q& q) {
 	vec<char> tmp;
@@ -58,8 +55,14 @@ static void schedule_possible(map<char, set<char>>& dependencies, p2q& q) {
 }
 
 class worker {
-	char cur_task = '.';
+private:
+	static constexpr char IDLE = '.';
+	char cur_task = IDLE;
 	int time_left = 0;
+
+	static int time_for_job(char n) {
+		return 60 + int(n - 'A') + 1;
+	}
 
 	void on_finish(char task, map<char, set<char>>& dependencies, p2q& q) {
 		std::cout << "---- completed task: " << task << std::endl;
@@ -72,7 +75,7 @@ class worker {
 	void get_new_task(p2q& q) {
 		if (q.empty()) {
 			std::cout << "---- queue empty" << std::endl;
-			cur_task = '.';
+			cur_task = IDLE;
 		} else {
 			cur_task = q.top();
 			q.pop();
@@ -82,18 +85,18 @@ class worker {
 	}
 
 public:
-	bool tick(map<char, set<char>>& dependencies, p2q& q) {
-		if (cur_task == '.') {
+	bool is_idle() const { return cur_task == IDLE; }
+
+	void tick(map<char, set<char>>& dependencies, p2q& q) {
+		if (is_idle()) {
 			get_new_task(q);
-			return cur_task == '.';
 		} else {
 			time_left--;
-			std::cout << "---- ticked task " << cur_task << std::endl;
+			std::cout << "---- ticked task: " << cur_task << std::endl;
 			if (time_left == 0) {
 				on_finish(cur_task, dependencies, q);
 				get_new_task(q);
 			}
-			return cur_task == '.';
 		}
 	}
 };
@@ -121,19 +124,17 @@ void run() {
 	p2q q;
 	schedule_possible(dependencies, q);
 
-	worker workers[5];
+	std::array<worker, 5> workers;
 	int timer = -1; // give one "pre-tick" to set things up
 	while (true) {
 		std::cout << "!!! beginning tick " << timer << std::endl;
-		bool all_idle = true;
-		int idx = 0;
-		for (auto& w : workers) {
-			std::cout << "- worker " << idx << std::endl;
-			auto idle = w.tick(dependencies, q);
-			all_idle = all_idle && idle;
-			idx++;
+
+		for (unsigned int i = 0; i < workers.size(); i++) {
+			std::cout << "- worker " << i << std::endl;
+			workers[i].tick(dependencies, q);
 		}
-		if (all_idle) {
+
+		if (std::all_of(workers.cbegin(), workers.cend(), [](const auto& w) { return w.is_idle(); })) {
 			if (!q.empty())
 				std::cout << "!!!! ALL IDLING WITH NONEMPTY QUEUE" << std::endl;
 			break;
