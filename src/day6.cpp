@@ -95,5 +95,19 @@ namespace day6 {
 				max_area = area;
 		}
 		std::cout << "p1: " << max_area << std::endl;
+
+		unsigned int valid_points = 0;
+		for (int i = min_x; i <= max_x; i++) {
+			for (int j = min_y; j <= max_y; j++) {
+				auto p = point(i, j);
+				int dist_sum = 0;
+				for (const auto& anch : anchors) {
+					dist_sum += manhattan(anch, p);
+				}
+				if (dist_sum < 10000)
+					valid_points++;
+			}
+		}
+		std::cout << "p2: " << valid_points << std::endl;
 	}
 }
