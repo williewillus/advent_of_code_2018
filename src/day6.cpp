@@ -33,6 +33,8 @@ namespace day6 {
 				max_y = y;
 			anchors.emplace_back(x, y);
 		}
+		std::cout << min_x << ", " << max_x << std::endl;
+		std::cout << min_y << ", " << max_y << std::endl;
 		
 		static constexpr unsigned int TIE = 0xDEADBEEF;
 		map<point, unsigned int> owners;
