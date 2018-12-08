@@ -7,7 +7,7 @@
 
 namespace day8 {
 struct Node {
-	vec<std::shared_ptr<Node>> children;
+	vec<std::unique_ptr<Node>> children;
 	vec<uint32_t> metadata;
 	std::optional<uint32_t> value;
 
@@ -17,7 +17,7 @@ struct Node {
 		s >> num_children;
 		s >> num_meta;
 		for (uint32_t i = 0; i < num_children; i++) {
-			auto child = std::make_shared<Node>();
+			auto child = std::make_unique<Node>();
 			child->parse(s);
 			children.push_back(std::move(child));
 		}
