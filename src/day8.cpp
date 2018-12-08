@@ -7,7 +7,7 @@
 
 namespace day8 {
 struct Node {
-	vec<std::unique_ptr<Node>> children;
+	vec<Node> children;
 	vec<uint32_t> metadata;
 	std::optional<uint32_t> value;
 
@@ -17,8 +17,8 @@ struct Node {
 		s >> num_children;
 		s >> num_meta;
 		for (uint32_t i = 0; i < num_children; i++) {
-			auto child = std::make_unique<Node>();
-			child->parse(s);
+			Node child;
+			child.parse(s);
 			children.push_back(std::move(child));
 		}
 		for (uint32_t i = 0; i < num_meta; i++) {
@@ -31,8 +31,8 @@ struct Node {
 	template<typename T>
 	void traverse(T func) {
 		func(*this);
-		for (const auto& c : children) {
-			c->traverse(func);
+		for (auto& c : children) {
+			c.traverse(func);
 		}
 	}
 
@@ -45,7 +45,7 @@ struct Node {
 				for (uint32_t m : metadata) {
 					uint32_t idx = m - 1;
 					if (idx < children.size()) {
-						v += children.at(idx)->get_value();
+						v += children.at(idx).get_value();
 					}
 				}
 				value = {v};
