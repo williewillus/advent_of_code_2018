@@ -3,12 +3,12 @@
 #include <limits>
 
 namespace day11 {
-static int input = 5093;
+static constexpr int INPUT = 5093;
 
 static int power(int x, int y) {
 	auto rack = x + 10;
 	auto pow = rack * y;
-	pow += input;
+	pow += INPUT;
 	pow *= rack;
 	auto hundreds = (pow/100) % 10;
 	return hundreds - 5;
@@ -20,9 +20,9 @@ static void run_p1(const std::array<std::array<int, 300>, 300>& grid) {
 
 	for (uint32_t row = 1; row <= 298; row++) {
 		for (uint32_t col = 1; col <= 298; col++) {
-			int sliding_score = grid.at(col-1).at(row-1) + grid.at(col).at(row-1) + grid.at(col+1).at(row-1)
-						+ grid.at(col-1).at(row) + grid.at(col).at(row) + grid.at(col+1).at(row)
-						+ grid.at(col-1).at(row+1) + grid.at(col).at(row+1) + grid.at(col+1).at(row+1);
+			int sliding_score = grid[col-1][row-1] + grid[col][row-1] + grid[col+1][row-1]
+						+ grid[col-1][row] + grid[col][row] + grid[col+1][row]
+						+ grid[col-1][row+1] + grid[col][row+1] + grid[col+1][row+1];
 
 			if (sliding_score > max_pow) {
 				max_pow = sliding_score;
@@ -46,13 +46,13 @@ static void run_p2(const std::array<std::array<int, 300>, 300>& grid) {
 				// right edge excluding the corner
 				for (uint32_t new_row = row; new_row <= row + expansion - 1; new_row++) {
 					uint32_t new_col = col + expansion;
-					local_score += grid.at(new_col-1).at(new_row-1);
+					local_score += grid[new_col-1][new_row-1];
 				}
 
 				// bottom edge including the corner
 				for (uint32_t new_col = col; new_col <= col + expansion; new_col++) {
 					uint32_t new_row = row + expansion;
-					local_score += grid.at(new_col-1).at(new_row-1);
+					local_score += grid[new_col-1][new_row-1];
 				}
 
 				if (local_score > max_score) {
@@ -69,15 +69,11 @@ static void run_p2(const std::array<std::array<int, 300>, 300>& grid) {
 }
 
 void run() {
-	if (!util::input_override.empty()) {
-		input = std::stoll(util::input_override);
-	}
-
-	// ~720K, should be fine on linux...
+	// ~351K, should be fine...
 	std::array<std::array<int, 300>, 300> grid;
 	for (uint32_t x = 1; x <= 300; x++) {
 		for (uint32_t y = 1; y <= 300; y++) {
-			grid.at(x-1).at(y-1) = power(x, y);
+			grid[x-1][y-1] = power(x, y);
 		}
 	}
 

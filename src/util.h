@@ -24,8 +24,6 @@ template<typename T>
 using vec = std::vector<T>;
 
 namespace util {
-extern std::string input_override;
-
 template<typename T>
 vec<T> read_input(const string& filename) {
     std::ifstream f(filename);
