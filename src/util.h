@@ -3,6 +3,7 @@
 
 // a bunch of prelude stuff
 #include <algorithm>
+#include <cstdint>
 #include <fstream>
 #include <iostream>
 #include <iterator>

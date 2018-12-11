@@ -1,5 +1,4 @@
 #include "util.h"
-#include <cstdint>
 #include <sstream>
 #include <memory>
 #include <numeric>
