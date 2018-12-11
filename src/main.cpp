@@ -13,16 +13,16 @@ namespace day6 { void run(); }
 namespace day7 { void run(); }
 namespace day8 { void run(); }
 namespace day9 { void run(); }
+namespace util { extern std::string input_override; }
 namespace chrono = std::chrono;
 
 int main(int argc, char* argv[]) {
     int day = -1;
     int ch = 0;
-    while ((ch = getopt(argc, argv, "d:")) != -1) {
-        if (ch == 'd') {
-            day = std::stoi(optarg);
-        } else {
-            throw std::runtime_error("Argument error");
+    while ((ch = getopt(argc, argv, "o:d:")) != -1) {
+	switch (ch) {
+          case 'd': day = std::stoi(optarg); break;
+	  case 'o': util::input_override = optarg; break;
         }
     }
 
