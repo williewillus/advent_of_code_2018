@@ -25,12 +25,9 @@ static std::set<int> iter(const set<int>& prev_state, const vec<pattern>& patter
 	int min = *prev_state.cbegin();
 	int max = *prev_state.rbegin();
 	int start = min - (PATTERN_SIZE - 1); // start with min on far right of window [....m]
-	//std::cout << "max is " << max << std::endl;
 	for (int i = start; i <= max; i++) {  // end with max on far left of window [m....]
-		//std::cout << "trying " << i << std::endl;
 		for (const auto& p : patterns) {
 			if (matches(prev_state, p, i)) {
-				//std::cout << "pattern matched at " << i << std::endl;
 				// we match from the leftmost, but the consequent declares what happens to the 3rd pot
 				bool consequent = std::get<1>(p);
 				if (consequent)
@@ -79,15 +76,16 @@ void run() {
 		p1_state = std::move(next);
 		show(p1_state);
 	}
-	std::cout << "p1: " << std::accumulate(p1_state.cbegin(), p1_state.cend(), 0) << std::endl;
 
 	auto p2_state = initial_state;
-	for (uint64_t i = 0; i < 50000000000; i++) {
-		if ((i % 1000) == 0)
-			std::cout << "iter " << i << std::endl;
+	for (uint64_t i = 0; i < 200; i++) {
 		auto next = iter(p2_state, patterns);
 		p2_state = std::move(next);
+		std::cout << "after " << i+1 << " iterations: " << std::accumulate(p2_state.cbegin(), p2_state.cend(), 0) << std::endl;
 	}
-	std::cout << "p2: " << std::accumulate(p2_state.cbegin(), p2_state.cend(), 0) << std::endl;
+	std::cout << "p2: eyeball the linear factor and extrapolate" << std::endl;
+
+	// put it after since p2 spams log
+	std::cout << "p1: " << std::accumulate(p1_state.cbegin(), p1_state.cend(), 0) << std::endl;
 }
 }
