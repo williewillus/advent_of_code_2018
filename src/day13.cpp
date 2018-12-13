@@ -102,7 +102,10 @@ static std::optional<point> tick(const vec<vec<Track>>& map, vec<vec<ocart>>& ca
 						case 2: cart.dir = cw(old_dir); break;
 					}
 					cart.turn_counter = (cart.turn_counter + 1) % 3;
+					break;
 				}
+				case NONE: throw "RAN OFF TRACKS, IMPOSSIBLE";
+				default: break;
 			}
 		}
 	}
