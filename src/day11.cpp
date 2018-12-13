@@ -20,12 +20,12 @@ static void run_p1(const std::array<std::array<int, 300>, 300>& grid) {
 
 	for (uint32_t row = 1; row <= 298; row++) {
 		for (uint32_t col = 1; col <= 298; col++) {
-			int sliding_score = grid[col-1][row-1] + grid[col][row-1] + grid[col+1][row-1]
+			int score = grid[col-1][row-1] + grid[col][row-1] + grid[col+1][row-1]
 						+ grid[col-1][row] + grid[col][row] + grid[col+1][row]
 						+ grid[col-1][row+1] + grid[col][row+1] + grid[col+1][row+1];
 
-			if (sliding_score > max_pow) {
-				max_pow = sliding_score;
+			if (score > max_pow) {
+				max_pow = score;
 				max_row = row;
 				max_col = col;
 			}

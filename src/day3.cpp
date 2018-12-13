@@ -1,6 +1,5 @@
 #include "util.h"
 #include <cassert>
-#include <numeric>
 #include <regex>
 
 namespace day3 {

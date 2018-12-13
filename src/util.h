@@ -2,7 +2,6 @@
 #define UTIL_H
 
 // a bunch of prelude stuff
-#include <algorithm>
 #include <cstdint>
 #include <fstream>
 #include <iostream>

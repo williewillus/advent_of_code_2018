@@ -1,6 +1,6 @@
 #include "util.h"
+#include <algorithm>
 #include <cctype>
-#include <iterator>
 #include <deque>
 
 namespace day5 {
@@ -29,12 +29,12 @@ void run() {
     for (char to_remove : "abcdefghijklmnopqrstuvwxyz") {
         char to_remove_upper = std::toupper(to_remove);
         auto copy = s;
-	copy.erase(
-	    std::remove_if(copy.begin(), copy.end(), [to_remove, to_remove_upper](char cand) {
-                return cand == to_remove || cand == to_remove_upper;
-            }),
-	    copy.cend());
-	auto rs = reacted_size(copy);
+		copy.erase(
+			std::remove_if(copy.begin(), copy.end(), [to_remove, to_remove_upper](char cand) {
+				return cand == to_remove || cand == to_remove_upper;
+			}),
+		copy.cend());
+		auto rs = reacted_size(copy);
         if (rs < min_len) {
             min_len = rs;
         }

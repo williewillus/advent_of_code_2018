@@ -1,5 +1,4 @@
 #include "util.h"
-#include <regex>
 
 namespace day2 {
 
