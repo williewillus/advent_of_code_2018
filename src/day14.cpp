@@ -5,8 +5,8 @@ static constexpr uint32_t INPUT = 846601;
 static const string SEEKING = std::to_string(INPUT);
 
 static void iter(vec<int>& elems, uint32_t& elf1_pos, uint32_t& elf2_pos) {
-	auto elem1 = elems.at(elf1_pos);
-	auto elem2 = elems.at(elf2_pos);
+	auto elem1 = elems[elf1_pos];
+	auto elem2 = elems[elf2_pos];
 	auto sum = elem1 + elem2;
 	if (sum >= 10) {
 		elems.push_back(1); // will always be 1 since the max value of a single elem is 9
@@ -29,8 +29,8 @@ void run() {
 			uint32_t base = elems.size() - 5;
 			bool match = true;
 			for (uint32_t i = 0; i < 5; i++) {
-				auto there = elems.at(base+i);
-				auto want = SEEKING.at(i) - '0';
+				auto there = elems[base+i];
+				auto want = SEEKING[i] - '0';
 				match = match && (there == want);
 			}
 			if (match) {
@@ -40,7 +40,7 @@ void run() {
 	}	
 	std::cout << "p1: ";
 	for (uint32_t i = INPUT; i < INPUT+10; i++) {
-		std::cout << elems.at(i);
+		std::cout << elems[i];
 	}
 	std::cout << std::endl;
 	std::cout << "p2: " << *p2_answer << std::endl;
