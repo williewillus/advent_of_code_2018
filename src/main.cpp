@@ -17,6 +17,7 @@ namespace day10 { void run(); }
 namespace day11 { void run(); }
 namespace day12 { void run(); }
 namespace day13 { void run(); }
+namespace day14 { void run(); }
 namespace util { extern std::string input_override; }
 namespace chrono = std::chrono;
 
@@ -50,6 +51,7 @@ int main(int argc, char* argv[]) {
     case 11: day11::run(); break;
     case 12: day12::run(); break;
     case 13: day13::run(); break;
+    case 14: day14::run(); break;
     default: throw std::runtime_error("No such day");
     }
 
