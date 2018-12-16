@@ -1,5 +1,7 @@
 #include "util.h"
+#include <algorithm>
 #include <array>
+#include <deque>
 #include <sstream> 
 
 namespace day16 {
@@ -61,9 +63,33 @@ struct instruction {
 	}
 };
 
+static state execute(instruction insn, const state& old) {
+	state ret = old;
+	switch (insn.op) {
+	case ADDR: ret[insn.out] = old[insn.in1] + old[insn.in2]; break;
+	case ADDI: ret[insn.out] = old[insn.in1] + insn.in2; break;
+	case MULR: ret[insn.out] = old[insn.in1] * old[insn.in2]; break;
+	case MULI: ret[insn.out] = old[insn.in1] * insn.in2; break;
+	case BANR: ret[insn.out] = old[insn.in1] & old[insn.in2]; break;
+	case BANI: ret[insn.out] = old[insn.in1] & insn.in2; break;
+	case BORR: ret[insn.out] = old[insn.in1] | old[insn.in2]; break;
+	case BORI: ret[insn.out] = old[insn.in1] | insn.in2; break;
+	case SETR: ret[insn.out] = old[insn.in1]; break;
+	case SETI: ret[insn.out] = insn.in1; break;
+	case GTIR: ret[insn.out] = (insn.in1 > old[insn.in2]); break;
+	case GTRI: ret[insn.out] = (old[insn.in1] > insn.in2); break;
+	case GTRR: ret[insn.out] = (old[insn.in1] > old[insn.in2]); break;
+	case EQIR: ret[insn.out] = (insn.in1 == old[insn.in2]); break;
+	case EQRI: ret[insn.out] = (old[insn.in1] == insn.in2); break;
+	case EQRR: ret[insn.out] = (old[insn.in1] == old[insn.in2]); break;
+	}
+	return ret;
+}
+
 struct sample {
 	instruction insn;
 	state old_state, new_state;
+	vec<opcode> candidates;
 };
 
 static vec<opcode> test(const sample& s) {
@@ -109,6 +135,13 @@ static void show(const sample& s) {
 	std::cout << "After: " << s.new_state[0] << "," << s.new_state[1] << "," << s.new_state[2] << "," << s.new_state[3] << std::endl;
 }
 
+static void show_insns(const vec<opcode>& ops) {
+	for (const auto op : ops) {
+		std::cout << op << ' ';
+	}
+	std::cout << std::endl;
+}
+
 void run() {
 	vec<sample> samples;
 	std::optional<sample> in_progress_sample;
@@ -127,7 +160,9 @@ void run() {
 				throw std::runtime_error("Trying to read after state with no sample in progress");
 
 			in_progress_sample->new_state = parse_state(line.substr(7));	
-			samples.push_back(*in_progress_sample);
+			in_progress_sample->candidates = test(*in_progress_sample);
+			
+			samples.push_back(std::move(*in_progress_sample));
 			in_progress_sample = {};
 		} else {
 			if (!in_progress_sample)
@@ -136,13 +171,52 @@ void run() {
 		}
 	}
 
-	show(samples[1]);
 	uint32_t p1 = 0;
 	for (const auto& s : samples) {
-		auto t = test(s);
-		if (t.size() >= 3)
+		if (s.candidates.size() >= 3)
 			p1++;
 	}
 	std::cout << "p1: " << p1 << std::endl;
+
+	map<uint16_t, opcode> mapping;
+	std::deque<sample> queue;
+	for (const auto& s : samples) {
+		queue.push_back(s);
+	}
+
+	while (!queue.empty()) {
+		// Take next sample
+		auto next = std::move(queue.front());
+		queue.pop_front();
+
+		// If opcode of insn is already known, skip
+		if (mapping.count(next.insn.op) > 0)
+			continue;
+
+		// Remove all known opcode from candidates
+		for (const auto& p : mapping) {
+			next.candidates.erase(
+				std::remove(next.candidates.begin(), next.candidates.end(), p.second),
+				next.candidates.end()
+			);
+		}
+
+		// If one candidate opcode remains, we have a new mapping
+		if (next.candidates.size() == 1) {
+			std::cout << "Gained new mapping" << std::endl;
+			mapping[next.insn.op] = next.candidates[0];
+		}
+
+		// Otherwise, put back in queue
+		queue.push_back(std::move(next));
+	}
+
+	state p2state = {};
+	for (const auto& s : util::read_lines("d16_program_input.txt")) {
+		auto insn = instruction::parse(s);
+		insn.op = mapping.at(insn.op);
+		p2state = execute(insn, p2state);
+	}
+	std::cout << "p2: " << p2state[0] << std::endl;
 }
 }
