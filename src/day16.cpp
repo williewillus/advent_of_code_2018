@@ -47,7 +47,7 @@ static state parse_state(const std::string& s) {
 }
 
 struct instruction {
-	uint8_t op;
+	uint16_t op;
 	uint32_t in1, in2, out;
 
 	static instruction parse(const std::string& s) {
