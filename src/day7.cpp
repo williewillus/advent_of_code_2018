@@ -5,8 +5,6 @@
 #include <regex>
 #include <queue>
 
-namespace day7 {
-
 static bool has_no_incoming_edges(const map<char, set<char>>& adj_list, char node) {
 	for (const auto& entry : adj_list) {
 		if (entry.second.count(node) > 0) {
@@ -101,7 +99,7 @@ public:
 	}
 };
 
-void run() {
+int main() {
 	std::regex r("Step (\\w) must be finished before step (\\w) can begin.");
 	map<char, set<char>> adj_list;
 	map<char, set<char>> dependencies;
@@ -144,5 +142,5 @@ void run() {
 	std::cout << "p2: " << timer << std::endl;
 
 	std::cout << "p1: " << topsort(adj_list) << std::endl;;
-}
+	return 0;
 }

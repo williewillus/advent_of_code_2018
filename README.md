@@ -5,4 +5,4 @@ Advent of Code 2018, in C++
 * `mkdir build && cd build`
 * `meson ../src/ --buildtype release`
 * `ninja && cd ..`
-* `build/aoc -d <day>`
+* `build/day<day>`

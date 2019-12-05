@@ -4,7 +4,6 @@
 #include <regex>
 #include <queue>
 
-namespace day9 {
 // TODO this solution causes reference cycles
 struct Node {
 	uint32_t value;
@@ -67,7 +66,7 @@ static uint32_t run_one(uint32_t player_count, uint32_t last_marble) {
 	return *std::max_element(scores.cbegin(), scores.cend());
 }
 
-void run() {
+int main() {
 	std::regex re("(\\d+) players; last marble is worth (\\d+) points");
 	std::string input = util::read_lines("d9_input.txt")[0];
 	std::smatch match;
@@ -77,5 +76,5 @@ void run() {
 
 	std::cout << "p1: " << run_one(player_count, last_marble) << std::endl;
 	std::cout << "p2: " << run_one(player_count, last_marble * 100) << std::endl;
-}
+	return 0;
 }

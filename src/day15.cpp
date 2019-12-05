@@ -1,8 +1,6 @@
 #include "util.h"
 #include <memory>
 
-namespace day15 {
-
 struct grid_elem {
 	virtual bool is_free() { return true; }
 	virtual bool act() { return true; }
@@ -28,7 +26,7 @@ struct elf : public grid_elem {
 	void test() override { std::cout << "test" << std::endl; }
 };
 
-void run() {
+int main() {
 	vec<vec<std::unique_ptr<grid_elem>>> world;
 	auto lines = util::read_lines("d15_input.txt");
 	for (const auto& line : lines) {
@@ -43,6 +41,5 @@ void run() {
 		}
 		world.push_back(std::move(row));
 	}
-}
-
+	return 0;
 }

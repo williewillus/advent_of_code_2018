@@ -2,10 +2,9 @@
 #include <cassert>
 #include <regex>
 
-namespace day3 {
 using point = std::tuple<int, int>;
 
-void run() {
+int main() {
     std::regex r("#\\d+ @ (\\d+),(\\d+): (\\d+)x(\\d+)");
     map<point, unsigned int> grid;
     map<point, unsigned int> grid_ownership;
@@ -49,5 +48,5 @@ void run() {
             std::cout << "p2: " << i << std::endl;
         }
     }
-}
+	return 0;
 }

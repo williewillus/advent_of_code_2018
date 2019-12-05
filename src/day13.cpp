@@ -2,7 +2,6 @@
 #include <cassert>
 #include <optional>
 
-namespace day13 {
 enum Track : uint8_t {
 	NONE,
 	HORIZ,
@@ -121,7 +120,7 @@ static void reset_updated(vec<vec<ocart>>& carts) {
 	}
 }
 
-void run() {
+int main() {
 	auto lines = util::read_lines("d13_input.txt");
 
 	vec<vec<Track>> map;
@@ -185,5 +184,5 @@ void run() {
 			break;
 		}
 	}
-}
+	return 0;
 }

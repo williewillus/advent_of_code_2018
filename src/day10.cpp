@@ -2,7 +2,6 @@
 #include <cassert>
 #include <regex>
 
-namespace day10 {
 struct Star {
 	std::tuple<int, int> pos;
 	const std::tuple<int, int> vel;
@@ -13,7 +12,7 @@ struct Star {
 	}
 };
 
-void run() {
+int main() {
 	std::regex re("position=<((?: |-)\\d+), ((?: |-)\\d+)> velocity=<((?: |-)\\d+), ((?: |-)\\d+)>");
 	vec<Star> stars;
 	for (const auto& str : util::read_lines("d10_input.txt")) {
@@ -25,5 +24,5 @@ void run() {
 		int vy = std::stoi(match[4].str());
 		stars.push_back({{px, py}, {vx, vy}});
 	}
-}
+	return 0;
 }

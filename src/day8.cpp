@@ -4,7 +4,6 @@
 #include <numeric>
 #include <optional>
 
-namespace day8 {
 struct Node {
 	vec<Node> children;
 	vec<uint32_t> metadata;
@@ -54,7 +53,7 @@ struct Node {
 	}
 };
 
-void run() {
+int main() {
 	string data = util::read_lines("d8_input.txt")[0];
 	std::stringstream s(data);
 	Node root;
@@ -68,5 +67,5 @@ void run() {
 	});
 	std::cout << "p1: " << meta_sum << std::endl;
 	std::cout << "p2: " << root.get_value() << std::endl;
-}
+	return 0;
 }

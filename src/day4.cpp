@@ -4,7 +4,6 @@
 #include <ctime>
 #include <regex>
 
-namespace day4 {
 enum Action {
     BEGIN_SHIFT,
     ASLEEP,
@@ -44,7 +43,7 @@ static std::time_t mktime(const std::tm& tm) {
     return ret;
 }
 
-void run() {
+int main() {
     std::regex guard_re("\\[(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+)\\] Guard #(\\d+) .*");
     std::regex update_re("\\[(\\d+)-(\\d+)-(\\d+) (\\d+):(\\d+)\\] (.*)");
     vec<record> records;
@@ -123,5 +122,5 @@ void run() {
         std::cout << "p2: " << max_guard.id * max_freq_idx << std::endl;
     }
 
-}
+	return 0;
 }

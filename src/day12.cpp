@@ -3,7 +3,7 @@
 #include <numeric>
 #include <regex>
 #include <tuple>
-namespace day12 {
+
 static constexpr uint32_t PATTERN_SIZE = 5;
 static constexpr char OCCUPIED = '#';
 static constexpr char FREE = '.';
@@ -47,7 +47,7 @@ static void show(const set<int>& state) {
 	std::cout << std::endl;
 }
 
-void run() {
+int main() {
 	auto lines = util::read_lines("d12_input.txt");
 
 	auto initial_state_str = lines[0].substr(15); // strip off "initial state: "
@@ -87,5 +87,5 @@ void run() {
 
 	// put it after since p2 spams log
 	std::cout << "p1: " << std::accumulate(p1_state.cbegin(), p1_state.cend(), 0) << std::endl;
-}
+	return 0;
 }

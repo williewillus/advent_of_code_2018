@@ -5,14 +5,13 @@
 #include <map>
 
 // idea: bfs from each anchor point, stopping at edge and replacing owners with min as necessary
-namespace day6 {
 	using point = std::tuple<int, int>;
 
 	static int manhattan(const point& p1, const point& p2) {
 		return std::abs(std::get<0>(p1) - std::get<0>(p2)) + std::abs(std::get<1>(p1) - std::get<1>(p2));
 	}
 
-	void run() {
+	int main() {
 		vec<point> anchors;
 		int min_x = std::numeric_limits<int>::max();
 		int min_y = std::numeric_limits<int>::max();
@@ -111,5 +110,5 @@ namespace day6 {
 			}
 		}
 		std::cout << "p2: " << valid_points << std::endl;
+		return 0;
 	}
-}

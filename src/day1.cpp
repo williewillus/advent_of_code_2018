@@ -1,8 +1,6 @@
 #include "util.h"
 
-namespace day1 {
-
-void run() {
+int main() {
     vec<long> changes = util::read_input<long>("d1_input.txt");
 
     long p1_counter = 0;
@@ -21,10 +19,8 @@ void run() {
                 seen.insert(p2_counter);
             } else {
                 std::cout << "p2: " << p2_counter << std::endl;
-                return;
+                return 0;
             }
         }
     }
-}
-
 }

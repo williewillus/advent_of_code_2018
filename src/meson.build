@@ -1,7 +1,7 @@
 project('aoc', 'cpp', default_options: ['cpp_std=c++17'] )
-src = [ 'main.cpp', 'util.cpp',
-		'day1.cpp', 'day2.cpp', 'day3.cpp', 'day4.cpp', 'day5.cpp', 'day6.cpp', 'day7.cpp', 'day8.cpp',
-		'day9.cpp', 'day10.cpp', 'day11.cpp', 'day12.cpp', 'day13.cpp', 'day14.cpp', 'day15.cpp', 'day16.cpp',
-		'day18.cpp', ]
-sdl2 = dependency('sdl2')
-executable('aoc', sources: src, dependencies: sdl2)
+extra_deps = {} # "dayN" -> list of extra source files that day needs besides itself and util.cpp
+foreach i : [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18] # Add more as more days complete
+	day = 'day' + i.to_string()
+	executable(day, sources: [day + '.cpp', 'util.cpp'] + extra_deps.get(day, []))
+endforeach
+

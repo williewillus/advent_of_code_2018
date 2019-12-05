@@ -1,7 +1,6 @@
 #include "util.h"
 #include <cassert>
 
-namespace day18 {
 enum tile : uint8_t {
 	EMPTY,
 	TREE,
@@ -83,7 +82,7 @@ static void tick(const vec<vec<tile>>& src, vec<vec<tile>>& dest) {
 	}
 }
 
-void run() {
+int main() {
 	vec<vec<tile>> grid;
 	for (const auto& line : util::read_lines("d18_input.txt")) {
 		vec<tile> row;
@@ -116,5 +115,5 @@ void run() {
 	std::cout << "p2: " << "eyeball the period from the sequence above, arbitrarily choosing a time and value to start the cycle with" << std::endl;
 	std::cout << "Then, do (1000000000 - <start time>) % <period>. Take the result as a 0-indexed value into the repeating sequence as the answer." << std::endl;
 	std::cout << "On the committed input in this repo, should yield answer 202806" << std::endl;
-}
+	return 0;
 }

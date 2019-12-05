@@ -2,7 +2,6 @@
 #include <array>
 #include <limits>
 
-namespace day11 {
 static constexpr int INPUT = 5093;
 
 static int power(int x, int y) {
@@ -68,7 +67,7 @@ static void run_p2(const std::array<std::array<int, 300>, 300>& grid) {
 	std::cout << "p2: " << max_col << "," << max_row << "," << size << std::endl;
 }
 
-void run() {
+int main() {
 	// ~351K, should be fine...
 	std::array<std::array<int, 300>, 300> grid;
 	for (uint32_t x = 1; x <= 300; x++) {
@@ -79,5 +78,5 @@ void run() {
 
 	run_p1(grid);
 	run_p2(grid);
-}
+	return 0;
 }

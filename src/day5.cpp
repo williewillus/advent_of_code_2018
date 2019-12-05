@@ -3,7 +3,6 @@
 #include <cctype>
 #include <deque>
 
-namespace day5 {
 static bool cancel(char a, char b) {
     return (std::isupper(a) && std::tolower(a) == b)
             || (std::islower(a) && std::toupper(a) == b);
@@ -21,7 +20,7 @@ static unsigned int reacted_size(const std::string& input) {
     return stack.size();
 }
     
-void run() {    
+int main() {    
     std::string s = util::read_lines("d5_input.txt")[0];
     std::cout << "p1: " << reacted_size(s) << std::endl;
     
@@ -40,5 +39,5 @@ void run() {
         }
     }
     std::cout << "p2: " << min_len << std::endl;
-}
+	return 0;
 }

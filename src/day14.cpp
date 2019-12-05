@@ -1,6 +1,5 @@
 #include "util.h"
 
-namespace day14 {
 static constexpr uint32_t INPUT = 846601;
 static const string SEEKING = std::to_string(INPUT);
 
@@ -16,7 +15,7 @@ static void iter(vec<int>& elems, uint32_t& elf1_pos, uint32_t& elf2_pos) {
 	elf2_pos = (elf2_pos + elem2 + 1) % elems.size();
 }
 
-void run() {
+int main() {
 	vec<int> elems { 3, 7 };
 	uint32_t elf1_pos = 0;
 	uint32_t elf2_pos = 1;
@@ -44,5 +43,5 @@ void run() {
 	}
 	std::cout << std::endl;
 	std::cout << "p2: " << *p2_answer << std::endl;
-}
+	return 0;
 }

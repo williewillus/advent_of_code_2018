@@ -4,8 +4,6 @@
 #include <deque>
 #include <sstream> 
 
-namespace day16 {
-
 enum opcode : uint8_t {
 	ADDR,
 	ADDI,
@@ -103,7 +101,7 @@ static vec<opcode> get_candidates(const sample& s) {
 	return ret;
 }
 
-void run() {
+int main() {
 	vec<sample> samples;
 	std::optional<sample> in_progress_sample;
 
@@ -178,5 +176,5 @@ void run() {
 		p2state = execute(insn, p2state);
 	}
 	std::cout << "p2: " << p2state[0] << std::endl;
-}
+	return 0;
 }

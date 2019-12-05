@@ -1,7 +1,5 @@
 #include "util.h"
 
-namespace day2 {
-
 static std::tuple<bool, bool> count_double_triple(const string& s) {
     map<char, long> m;
     for (char c : s) {
@@ -28,7 +26,7 @@ static bool has_one_diff(const string& s1, const string& s2) {
     return diffs == 1;
 }
 
-void run() {
+int main() {
     vec<string> lines = util::read_lines("d2_input.txt");
     long count_double = 0, count_triple = 0;
     for (const auto& s : lines) {
@@ -46,9 +44,9 @@ void run() {
                 std::cout << "p2:" << std::endl;
                 std::cout << lines[i] << std::endl;
                 std::cout << lines[j] << std::endl;
-                return;
+                return 0;
             }
         }
     }
-}
+	return 1;
 }
